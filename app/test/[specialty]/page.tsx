@@ -65,9 +65,9 @@ export default function TestPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto w-full p-4">
+    <div className="max-w-3xl mx-auto w-full p-4 flex flex-col h-screen">
       <h1 className="text-3xl font-bold text-primary-800 mb-6">{specialty} test</h1>
-      <div className="bg-white rounded-lg shadow-soft p-4 mb-4 h-[60vh] overflow-y-auto">
+      <div className="bg-white rounded-lg shadow-soft p-4 mb-4 flex-grow overflow-y-auto">
         {messages.map((message, index) => (
           <div key={index} className={`mb-4 ${message.role === 'user' ? 'text-right' : ''}`}>
             <div className={`inline-block p-3 rounded-lg ${
@@ -82,21 +82,22 @@ export default function TestPage() {
           </div>
         ))}
       </div>
-      {!isEnded && (
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-            className="flex-grow p-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300 text-black"
-            placeholder="Type your message..."
-          />
-          <button onClick={sendMessage} className="bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors duration-300">Send</button>
-          <button onClick={endTest} className="bg-secondary-500 text-white px-6 py-3 rounded-lg hover:bg-secondary-600 transition-colors duration-300">End Test</button>
+      {!isEnded ? (
+        <div className="flex flex-col space-y-2">
+          <div className="flex space-x-2">
+            <input
+              type="text"
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+              className="flex-grow p-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300 text-black"
+              placeholder="Type your message..."
+            />
+            <button onClick={sendMessage} className="bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors duration-300">Send</button>
+          </div>
+          <button onClick={endTest} className="bg-secondary-500 text-white px-6 py-3 rounded-lg hover:bg-secondary-600 transition-colors duration-300 w-full">End Test</button>
         </div>
-      )}
-      {isEnded && (
-        <button onClick={() => router.push('/')} className="max-w-3xl mx-auto w-full bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors duration-300 mt-4">Back to Home</button>
+      ) : (
+        <button onClick={() => router.push('/')} className="bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors duration-300 mt-4">Back to Home</button>
       )}
     </div>
   )

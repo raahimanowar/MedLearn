@@ -45,7 +45,7 @@ export default function RootLayout({
               {children}
             </main>
           </div>
-          <Analytics mode={'production'} />;
+          <Analytics mode={'production'} />
         </body>
       </html>
     </ClerkProvider>
